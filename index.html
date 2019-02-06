@@ -1,0 +1,1389 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>ES6 Crashcourse</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/blood.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<style>
+			.container{overflow:hidden;}
+			.half{float:left;position:relative;width:49%;}
+			.half + .half{float:right;width:49%;}
+			.nostyle{border:none!important;background-color:transparent!important;box-shadow:none!important;}
+		</style>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="data:application/octet-stream;base64,ZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnaGVhZGVyJyk7CmRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ25hdicpOwpkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdzZWN0aW9uJyk7CmRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2FydGljbGUnKTsKZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnYXNpZGUnKTsKZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZm9vdGVyJyk7CmRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2hncm91cCcpOw=="></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>ES2015</h1>
+					<h3>A gentle crashcourse</h3>
+					<aside class="notes">
+						<p>Been spending time learning</p>
+						<p>Now that we have transpiling built in</p>
+						<p>Good to get familiar, or more importantly, comfortable with seeing the syntax</p>
+					</aside>
+				</section>
+
+				<section>
+					<section>
+						<h3>Agenda</h3>
+						<ul>
+							<li>History of JS</li>
+							<li>Future of JS</li>
+							<li>Build procedure</li>
+							<li>Reviewing variable and function hoisting</li>
+							<li>Let, Const, and Block scoping</li>
+							<li>Rest parameters</li>
+							<li>Spread operators</li>
+							<li>Object destructuring</li>
+							<li>Array destructuring</li>
+							<li>Arrow functions</li>
+						</ul>
+
+						<aside class="notes">
+							<p>There's been a lot leading up to where we're at now</p>
+							<p>There's a bright future ahead</p>
+							<p>Before we actually get into the new syntax, i want to talk about the tools we're using</p>
+							<p>I also want to talk about some nuances of how we write code now that some dont know or always think about</p>
+						</aside>
+
+					</section>
+					<section>
+						<h3>Agenda (continued)</h3>
+						<ul>
+							<li>Class constructors</li>
+							<li>Modules</li>
+							<li>Promises</li>
+							<li>Generators</li>
+						</ul>
+
+						<aside class="notes">
+							I'm not sure if we'll even get through everything on the previous slide, but if we blow through it we can talk about this stuff.
+
+							<p>If you guys are into this, I can put together a followup presentation</p>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>History of JavaScript</h2>
+					</section>
+					<section>
+						<h3>Brendan Eich</h3>
+						<img src="/images/eich.jpg" alt="">
+						<aside class="notes">
+							JS was created by this guy. I found the most flattering picture I could.
+						</aside>
+					</section>
+					<section>
+						<h3>Early Days</h3>
+						<ul>
+							<li>Studied computer science and mathematics in CA</li>
+							<li>Finished Master's Degree in 1985 in IL</li>
+							<li>Worked at Silicon Graphics International (SGI)</li>
+							<li class="">Made some important friends</li>
+							<aside class="notes">He worked other jobs over the course of the next decade, but there were several acquintances here that would shape his future.</aside>
+						</ul>
+					</section>
+					<section>
+						<h3>Netscape Days</h3>
+						<ul>
+							<li>Joined Netscape team in 1995</li>
+							<li>Sun was pressuring Netscape to put Java in the browser</li>
+							<li>Brendan was in charge of this decision</li>
+							<aside class="notes">
+								<p>10 years later, those acquaintances had started Netscape, and poached Brendan to come develop Scheme for the browser.</p>
+								<p>During this time, netscape was gaining popularity</p>
+								<p>Sun microsystems was in the midst of putting the pressure on netscape</p>
+								<p>And brendan eich, the new member of the netscape team, was put in charge of dealing with this decision</p>
+							</aside>
+						</ul>
+					</section>
+					<section>
+						<h3>The Language of the Web?</h3>
+						<ul>
+							<li class="">Java was too complex</li>
+							<li class="">Netscape wanted something like VB, but not VB</li>
+							<li class="">Needed something approachable for new programmers</li>
+							<li class="">The language needed to be forgiving</li>
+						</ul>
+						<aside class="notes">
+							<p>Eich decided that Java was not going to be the language of the web due to its over-complexity</p>
+							<p>Netscape suggested something similar to visual basic, since VB was easier for amateur developers to pick up</p>
+							<p>They didn't want the language to be too strict either. Semicolons are automatically added.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Mocha, LiveScript, JavaScript</h3>
+						<ul>
+							<li>Brendan was assigned to spec a new language that Netscape would integrate</li>
+							<li>This was known as Project Mocha in its early days</li>
+							<li>Due to LiveWire, was officialy named LiveScript</li>
+							<li>After some legal back and forth in Dec. '95, eventually became JavaScript</li>
+						</ul>
+						<aside class="notes">
+							<p>So brendan gave the veto on Java and was assigned the task of speccing a new langugage for netscape to implement. </p>
+							<p>That was the beginning of javascript. Although it was originally known as the mocha project and then livescript</p>
+							<p>Livescript was chose for marketing purposes to be co-branded with livewire, a server package that netscape offered</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Adoption</h3>
+						<ul>
+							<li>JS became very popular in its first year</li>
+							<li>Netscape kept evolving the API</li>
+							<li>Microsoft complained about standarization</li>
+							<li class="">^ How ironic...</li>
+						</ul>
+						<aside class="notes">
+							<p>So JS was a hit and Netscape kept making revisions to the API</p>
+							<p>During this time, IE was gaining popularity</p>
+							<p>To keep up with Netscape, microsoft was doing its own bastardized implmentations of the evolving API and complained to Netscape</p>
+							<p>They said there needs to a standard, which IMO is laughable.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Standardization</h3>
+						<ul>
+							<li class="">Netscape feared that Microsoft would eclipse Netscape</li>
+							<li class="">Found independent standardization committee</li>
+							<li class="">European Computer Manufacturers Association (ECMA)</li>
+							<li class="">TC39</li>
+						</ul>
+						<aside class="notes">
+							<p>Netscape was interested in standardizing across the web, but didnt want to MS to have much say</p>
+							<p>So they found an independent committee called ECMA</p>
+							<p>The technical team within Ecma was TC39. Douglas Crockford</p>
+						</aside>
+					</section>
+					<section>
+						<h3>EcmaScript</h3>
+						<ul>
+							<li class="">Not a language, just a language specifiction</li>
+							<li class="">JavaScript is the language that implements this spec</li>
+							<li class="">Action Script, Adobe Products, Nashorn, etc. also use this spec</li>
+						</ul>
+						<aside class="notes">
+							<p>People tend to get ecmascript confused with javascript. javascript is an implmentation of ecmascript specifications</p>
+							<p>Reading the ecmascript docs, aside from putting you to sleep, won't teach you how to write code. it will just tell you how the code should behave.</p>
+							<p>A bunch of other languages are writting on ecmascript, but some of the more notable ones...</p>
+						</aside>
+					</section>
+					<section>
+						<h3>ES1, ES2, ES3</h3>
+						<ul>
+							<li class="">Released between 1996 and 1999</li>
+							<li class="">In this time, IE dominated</li>
+							<li class="">Netscape folds and open sources their code</li>
+						</ul>
+						<aside class="notes">
+							<p>Over the course of a couple years, the spec went through 3 different revisions</p>
+							<p>In this time, IE crushed on Netscape and Netscape folded and open soruced their code.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>ES3.1 vs. ES4</h3>
+						<ul>
+							<li class="">Discussions of a new spec didn't start until 2006</li>
+							<li class="">Different ES languages wanted different features added to the spec</li>
+							<li class="">Lots of arguments</li>
+						</ul>
+						<aside class="notes">
+							<p>Things were quiet for 6 or 7 years before the ES4 specification discussions began</p>
+							<p>By this time, there were a lot of different implementations of ES, and each implementer a different idea of where the language should go</p>
+							<p>As a result there were a lot of disagreements</p>
+							<p>There were essentially 2 camps. One camp wanted the language overhauled in the ES4 spec, making it more of a classical language.</p>
+							<p>The other camp liked JavaScript as it was and was opting to revise the spec minimally, adding small features over based on what they were calling for in the proposed ES3.1 spec.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>ES3.1 Wins</h3>
+						<ul>
+							<li class="">The spec was not overhauled and everyone was working harmoniously for the most part</li>
+							<li class="">ES3.1 became ES5</li>
+							<li class="">Future specification ideas were put on the "Harmony List"</li>
+						</ul>
+						<aside class="notes">
+							<p>TC39 decided to forego the overhaul in favor of the ES3.1 spec</p>
+							<p>The spec was eventually renamed to ES5, which is the implementation of the spec we're all most familiar with today</p>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>The future of JS</h2>
+						<aside class="notes">So that brings us to day. Or at least close to today.</aside>
+					</section>
+					<section>
+						<h3>ES6</h3>
+						<ul>
+							<li class="">Technically the new implementation</li>
+							<li class="">But we're calling it ES2015</li>
+							<li class="">Annually revised ES specificaiton</li>
+							<li class="">Future features in the Harmony list are referred to as JS Next</li>
+						</ul>
+						<aside class="notes">
+							<p>JS devs were much more united during the ES5 era of the spec. There were many proposals for the new spec. </p>
+							<p>The name has been causing a lot of confusion for the past couple years because theyve changed it so damn much</p>
+							<p>It was referred to ESHarmony and ES6. Technically the new implementation is ES6, but we're calling it 2015.</p>
+						</aside>
+
+					</section>
+					<section>
+						<h3>Browser implementations</h3>
+						<ul>
+							<li class="">Browsers have been implementing "ES2015" & ESNext features since 2009</li>
+							<li class="">For most features, there are polyfills</li>
+							<li class="">Specs are implemented feature by feature, not in the spec's entirety</li>
+						</ul>
+						<aside class="notes">
+							<p>Browsers have been implementing new features from the post ES5 spec since 2009, particularly mozilla</p>
+							<p>Those implementations will work natively</p>
+							<p>Older browsers will require a polyfill, which is essentially what transpilers transform the code with</p>
+							<p>its also good to know that some browsers are implementing ES7(next) right now, even before they've implemented the full ES6 spec.</p>
+							<p>That said, it's important not to think of the spec as an entire body, more like a wave of individual features.</p>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Build Flow</h2>
+						<aside class="notes">
+							<p>We've used a lot of tools to architect our javascript in the past couple of years.</p>
+							<p>Before we look at how new features of JS fit into our workflow, lets make sure we clarify a few things.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Module Bundling Tools</h3>
+						<div class="container">
+							<div class="half"><img class="nostyle" style="margin-top:30%;" src="/images/browserify.png" alt=""></div>
+							<div class="half"><img class="nostyle" src="/images/webpack.png" alt=""></div>
+						</div>
+						<aside class="notes">
+							<p>Most of you probably remember require JS</p>
+							<p>These tools are not terribly different in essence, but they allow us to post-process the code in a variety of configurable ways</p>
+							<p>The front end team should already be familiar with Browserify</p>
+							<p>You'll probably start seeing more of webpack. We'll talk more about webpack in another L&L.</p>
+							<p>But essentially, we're primarily leveraging these tools to bundle our javascript.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>CommonJS Modules</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+/*In my-constructor.js...*/
+
+//Define a constructor function
+function MyConstructor(){/*some code*/}
+
+//Export the constructor function
+module.exports = MyConstructor;
+
+
+/*Somewhere else...*/
+
+//Import the module from my-constructor.js
+var ImportedConstructor = require('./path/to/my-constructor.js');
+
+//Instantiate the imported function
+var module = new ImportedConstructor();
+
+						</code></pre>
+						<aside class="notes">
+							<p>A lot of FEDs will think of modules as an ES6 thing</p>
+							<p>Theyre right to some degree, but modules have been used in Node via the common js pattern for a while now</p>
+							<p>Common JS is not ES6, but our module bundling tools accept it as a valid way to define dependencies and structure.</p>
+							<p>Here, we're defining a constructor and exporting it from a file called my const.js</p>
+							<p>Then we're importing it somewhere else. We can reuse that code where we import it</p>
+						</aside>
+					</section>
+					<section>
+						<h3>ES6 Modules</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+/*In my-constructor.js...*/
+
+//Define a constructor function and export it
+export default function MyConstructor(){/*some code*/}
+
+
+/*Somewhere else...*/
+
+//Import the module from my-constructor.js
+import ImportedConstructor from './path/to/my-constructor.js';
+
+//Instantiate the imported function
+var module = new ImportedConstructor();
+
+						</code></pre>
+						<aside class="notes">
+							<p>Behaviorally, ES6 modules aren't any different, it's just a syntax difference</p>
+							<p>Browserify and Webpack accepts this format too. It will also except a mix of both</p>
+							<p>We're doing the same thing here as we were in other examples</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Browserify & Webpack...</h3>
+						<ul>
+							<li class="">Traverse our modules</li>
+							<li class="">Analyze dependencies</li>
+							<li class="">Package accordingly</li>
+							<li class="">Do <strong>not</strong> transpile other ES6/Next code</li>
+						</ul>
+						<aside class="notes">
+							<p>So again, these build tools are only bundling our separated modules</p>
+							<p>Out of the box, they're not transpiling anything</p>
+							<p>They're just reading the initiall entry point, app js or whatever, determining the deps, and build a file based on our configs</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Transpiling</h3>
+						<img src="/images/babel.png" class="nostyle" alt="">
+						<aside class="notes">
+							<p>In the config, we can add plugins to transform things. Babel is the most notable ES6 transpiler.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Babel</h3>
+						<ul>
+							<li>Formerly "6to5"</li>
+							<li>Utility that formats JS at buildtime using a library of polyfills to transform/compile ES6+ code into ES5</li>
+							<li>Documentation: <a href="https://babeljs.io/">https://babeljs.io/</a></li>
+							<li>Already in GenInit</li>
+						</ul>
+						<aside class="notes">
+							<p>this is already configured in GenInit, so you can start writing what we're about to learn today.</p>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Hoisting</h2>
+						<aside class="notes">
+							<p>So before we get into the new syntax, we're going to review the way the JS interpreter works</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Variable & functions get hoisted</h3>
+						<ul>
+							<li>JS interpreter doesn't read your code like it appears</li>
+							<li>It hoists declarations and expressions to the top of the lexical scope</li>
+						</ul>
+						<aside class="notes">
+							<p>The most important thing to remember is that the interpreter doesnt always see things the way we see it.</p>
+							<p>It take the liberty of structuring your code in a certain way.</p>
+							<p>It probably does this for the same reasons it adds semicolons.</p>
+							<p>Most of the times its not a problem, but it's importan to understand whats going on behind the scenes if you want to embrace the new syntax.</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>How we see our code</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+console.log(name);
+
+var name = "Brian Shirley"
+
+						</code></pre>
+						<aside class="notes">
+							<p>Lets take this code for example. Whats going to happen.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>How the interpreter sees it</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+var name = undefined;
+
+console.log(name);
+
+name = "Brian Shirley";
+
+						</code></pre>
+						<aside class="notes">
+							<p> We know that code is going to be undefined. But this is how our browser sees that. </p>
+							<p>It says hey i see a variable getting declared on the second line of the lexical scope</p>
+							<p>I'm going to declare it as undefined at the top, then assign it to your new value at the line you specified. </p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>How we see our code</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+var foo = 2;
+
+if(true){
+  var bar = 1;
+}
+
+console.log(foo + bar); //What does this log?
+
+						</code></pre>
+						<aside class="notes">Whats true here? This will always evaluate true</aside>
+					</section>
+					<section>
+						<h3>How the interpreter sees it</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+var foo = 2;
+var bar = undefined;
+
+if(true){
+  bar = 1;
+}
+
+console.log(foo + bar); //3
+
+
+						</code></pre>
+						<aside class="notes">Again, the var is going to be hoisted.</aside>
+					</section>
+					<section>
+						<h3>How we see our code</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+// ...code...
+
+//Declaration
+function foo(){
+  //code
+}
+
+//Expression
+var bar = function(){
+  //code
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>Functions get hoisted too</p>
+							<p>There are two ways to call a function, by declaration and by expression</p>
+							<p>Does anyone want to guess whats going to happen here?</p>
+						</aside>
+					</section>
+					<section>
+						<h3>How the interpreter sees it</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+var bar = undefined;
+
+//Declaration
+function foo(){
+  //code
+}
+
+// ...code...
+
+bar = function(){
+  //code
+}
+
+
+						</code></pre>
+						<aside class="notes">
+							<p>First, bar got hoisted and is set undefined until the line we originally declared it, where its then assigned to function bar</p>
+							<p>Foo, our fn declaration is also hoisted (underneath hoisted variables)</p>
+						</aside>
+					</section>
+					<section>
+						<h3>How we see our code</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+outer();
+function outer(){
+  a = 0;
+  inner();
+  function inner(){
+    b = 2;
+  }
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>This is kind of interesting because we're calling outer before its defined... or are we?</p>
+							<p>If this was a function expression, we'd get undefined</p>
+							<p>Can someone tell us how this will hoist?</p>
+						</aside>
+					</section>
+					<section>
+						<h3>How the interpreter sees it</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+var a = undefined;
+var b = undefined;
+function outer(){
+  function inner(){
+    b = 2;
+  }
+  a = 0;
+  inner();
+}
+outer();
+
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>LET</h2>
+					</section>
+					<section>
+						<h2>Let declarations</h2>
+						<ul>
+							<li>Are block scoped</li>
+							<li>Are <strong>NOT</strong> hoisted</li>
+							<li>Behave similarly to var</li>
+							<li>Intrepreted just how they look in your code (unlike var!)</li>
+							<li>Do <strong>NOT</strong> <em>always</em> replace var</li>
+						</ul>
+						<aside class="notes">
+							<p>Now we can see that variable decs. aren't always interpreted how we write them. </p>
+							<p>This is important in understanding the way let works</p>
+							<p>Let is NOT hoisted. It's evaluated just as you write it</p>
+							<p>Other differences, they're block scoped, and we'll talk about that.</p>
+							<p>Not meant to just replace var </p>
+						</aside>
+					</section>
+					<section>
+						<h3>Example of let declaration</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+let foo = 1;
+
+console.log(foo); //1
+
+foo = 2;
+
+console.log(foo); //2
+
+						</code></pre>
+						<aside class="notes">
+							<p>A simple assignment of a let variable</p>
+							<p>Nothing mindblowing here</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Example of block scoping</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+let foo = 2;
+{
+  let bar = 1;
+}
+console.log(foo + bar); //Error, bar not defined.
+
+//bar only exists in the block scope of the if statement between the {braces}
+
+						</code></pre>
+						<aside class="notes">
+							<p>But lets talk about how it differs from var</p>
+							<p>When you wrap a let inside a brace, it's scoped within that brace.</p>
+							<p>You will never be able to hard reference let variable outside of a set of braces</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Temporal Dead Zone</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+function func(){
+  console.log(a); // Throws ref error.
+  let a = 1;
+  console.log(a);
+}
+func();
+
+						</code></pre>
+						<aside class="notes">
+							<p>Going back to our discussion about hoisting, vars wouldn't throw an error here</p>
+							<p>But lets arent hoisted</p>
+							<p>Interpreter sees a let dec. of a and says ok... i'm going to reserve a space in the memory for you, but you cant use it until you formally declare it</p>
+							<p>This is called the temporal deadzone</p>
+							<p>Aside from the badass name, all you need to know is that you can't reference lets prior to declaring them </p>
+							<p>Rule of thumb; always declare your lets at the top of the block scope</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Quiz: Question 1</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+
+var a = 'foo';
+function func(){
+  console.log(a); // What happens here?
+  let a = 1;
+  console.log(a); // What happens here?
+}
+func();
+console.log(a); // What happens here?
+
+						</code></pre>
+						<aside class="notes">
+							<p>Okay, a little review on lexical scope, hoisting, and let behavior</p>
+							<p>Can someone tell me what these console logs output?</p>
+							<p>What happens when i get rid of the first and last lines</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Quiz: Question 2</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+for(var i = 0; i < 10;i++){
+  console.log(i); // What happens here?
+}
+for(let j = 0; j < 10;j++){
+  console.log(j); // What happens here?
+}
+
+console.log(i); // What happens here?
+console.log(j); // What happens here?
+
+						</code></pre>
+						<aside class="notes">
+							<p>Question 2, what happens at the consoles this time?</p>
+							<p>Right, j is undefined outside of the for loop</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Quiz: Question 3</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+for(var i = 0; i < 10;i++){
+  setTimeout(function(){
+    console.log(i); // What happens here?
+  },1000 * i);
+}
+
+//
+
+for(let j = 0; j < 10;j++){
+  setTimeout(function(){
+    console.log(j); // What happens here?
+  },1000 * j);
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>Question 3, what about this time?</p>
+							<p>First uses var, second uses let</p>
+							<p>First always equals 10</p>
+							<p>Second increments</p>
+							<p>Explain the call stack</p>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>CONST</h2>
+					</section>
+					<section>
+						<h3>Const(ant) declarations</h3>
+						<ul>
+							<li>Cannot change</li>
+							<li>Are block scoped</li>
+							<li>Are <strong>NOT</strong> hoisted</li>
+							<li>Intrepreted just how they look in your code (unlike var!)</li>
+						</ul>
+						<aside class="notes">
+							<p>Consts or constants, behave the exact same way lets do as far as scoping goes</p>
+							<p>The big difference is they cannot be changed.</p>
+							<p>Use consts for a constant value</p>
+							<p>When you see one, know that its never going to change</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Const Declaration</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+const a = 0;
+a = 1; // SyntaxError: Assignment to a constant variable.
+
+						</code></pre>
+					</section>
+					<section>
+						<h3>Const(ants) are block-scoped</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+const a = 1;
+{
+  const a = 2;
+  console.log(a); // 2
+}
+console.log(a); // 1
+
+						</code></pre>
+						<aside class="notes">
+							<p>Again, always block scoped</p>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Rest Parameters</h2>
+						<aside class="notes">
+							<p>Lets talk about rest parameters</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Rest (as in the <em>rest</em> of something)</h3>
+						<ul>
+							<li>Not to be confused in any way with RESTful</li>
+							<li>Stores function parameters in an array object</li>
+						</ul>
+						<aside class="notes">
+							<p>First thing I thought when I heard rest, I thought of restful APIs, but that's not what this is</p>
+							<p>Think of it as the rest of something</p>
+							<p>What the rest parameter is, is a function argument that stores everything passed to that function into an array</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Rest Parameter Example</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+let someObject = {key:'value'};
+func(someObject, [6,6,6]);
+function func(...all){
+  console.log(all) // [someObject{key:'value'}, [6,6,6]];
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>Here, someObj is just a standard object with a key/value pair</p>
+							<p>We call out function and pass it that object along with an arbitrary array</p>
+							<p>You see how that function takes a ...params? We call it all, but it can be called anything</p>
+							<p>When we log it, it outputs each argument in proper array</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Another Rest Parameter Example</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+func(1, 2, 3, 4, 5);
+function func(a , b, ...andTheRest){
+  console.log(a, b, andTheRest); //1, 2, [3,4,5];
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>Looking at a slightly more complex example</p>
+							<p>We're passing out function 5 arguments</p>
+							<p>Our parameters are arbitrarily names, a, b and therest</p>
+							<p>When we log them, a and b behave as we would normally expect</p>
+							<p>but andTherest takes all of the remaining arguments and puts them into an array</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Rest Parameter Caveats</h3>
+						<ul>
+							<li>Can only be used one at a time</li>
+							<li>It has to be the last parameter</li>
+							<li>Behaves differently than arguments object</li>
+						</ul>
+						<aside class="notes">
+							<p>Rest parameters are pretty simple, but we need to keep a few things in mind</p>
+							<p>Since it captures all REMAINING arguments, we can only use one</p>
+							<p>And since it captures all REMANING arguments, it has to be the last parameter</p>
+						</aside>
+					</section>
+					<section>
+						<h3>This Will Error</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+function func(...some, ...rest){ //error
+  console.log(some, rest);
+}
+func(1, 2, 3, 4, 5);
+
+						</code></pre>
+						<aside class="notes">
+							<p>So to demonstrate this, if you use 2, you'll get an error. You might assume that ...rest here would just be undefined, but you'll actually get an error</p>
+						</aside>
+					</section>
+					<section>
+						<h3>This Will Also Error</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+function func(...some, somethingElse){ //error
+  console.log(some, rest);
+}
+func(1, 2, 3, 4, 5);
+
+						</code></pre>
+						<aside class="notes">
+							<p>Similarly, you'll also get an error if you put define another parameter after a rest parameter</p>
+						</aside>
+					</section>
+				</section>
+
+
+				<section>
+					<section>
+						<h2>The Spread Operator</h2>
+						<aside class="notes">
+							<p>So thats the rest parameter. Pretty simple. Lets take a look at spreads.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Spread Operators...</h3>
+						<ul>
+							<li>Are expressions that expand their values</li>
+							<li>Looks like rest, but cannot be used as an argument</li>
+							<li>Can be used for function parameters, array literals, and destructuring</li>
+						</ul>
+						<aside class="notes">
+							<p>They're only expressions that expand their values</p>
+							<p>They look a lot like rest params, but they are not actually put inside of the function declaration.</p>
+							<p>On the contrary, you can PASS them to function, and you can also use them on array literals as well as in destructuring</p>
+							<p>Will talk about destructuring after this section</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Spread Operator Example</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+let nums = [1,2,3];
+let nums2 = [4,5,6];
+
+let allNums = [...nums, ...nums2];
+
+console.log(allNums); // [1,2,3,4,5,6];
+
+						</code></pre>
+						<aside class="notes">
+							<p>So in this examples we're creating 2 array literals that contain numbers</p>
+							<p>We assign a new let variable that SPREADS these out and creates a one-dimensional array</p>
+							<p>If we werent to use the operator, we'd have a multidimensional array</p>
+							<p>So in short, this is just breaking our array out into 3 values each, and we're putting them back into an array</p>
+							<p>As a result, this is a much quicker way to concatenate arrays</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Spreading a Dynamic Value</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+function getNums(){
+  return [1,2,3];
+}
+
+let b = [0, ...getNums(), 4, 5];
+
+console.log(b); //[0,1,2,3,4,5];
+
+						</code></pre>
+						<aside class="notes">
+							<p>We can also add a bit of dynamicism by calling a function in that returns an array.</p>
+							<p>This gives us the same result.</p>
+							<p>Here, we're defining a let variable b, that spreads out the return of a function along with some other numbers.</p>
+							<p>Again, our result is a one-dimensional array.</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Spreading into individual arguments</h3>
+
+						<pre><code class="hjs" data-trim contenteditable>
+
+function func(x,y,z) {
+  return x + y + z;
+}
+
+// Pass each elem of array as argument
+func(...[1,2,3]); // 6
+
+						</code></pre>
+						<aside class="notes">
+							<p>If we use the spread operator on an array as an argument, it takes our array and SPREADS, or splits it into independent arguments</p>
+							<p>So in this example, func, takes three arguments (note: not an array that has three items)</p>
+							<p>We add them together and we get a number</p>
+
+						</aside>
+					</section>
+				</section>
+
+
+				<section>
+					<section>
+						<h2>Destructuring</h2>
+					</section>
+					<section>
+						<h3>Destructuring...</h3>
+						<ul>
+							<li>Is a way to extract and map data from an array or an object</li>
+							<li>Can only be done on an array or an object</li>
+							<li>Allows the setting of default values</li>
+						</ul>
+						<aside class="notes">
+							<p>Destructuring is really just a way to extract and map data</p>
+							<p>It can be used in a variety of different patterns on both arrays and objects</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Basic Object Destructruing</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+let obj = {first:'Jake', last:'Rainis', age:28};
+
+let {first, last, age} = obj;
+
+console.log(first, last, age); //Jake Rainis 28
+
+						</code></pre>
+						<aside class="notes">
+							<p>Here's a basic example where we have an object</p>
+							<p>We say let these variables equal the object</p>
+							<p>And the destructuring assignment knows to map each object value to the new let var</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Altering destructuring values</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+let obj = {first:'Jake', last:'Rainis', age:28};
+
+let {first:a, last:b, age:c} = obj;
+
+console.log(a,b,c); //Jake Rainis 28
+
+						</code></pre>
+						<aside class="notes">
+							<p>If we don't want to use the key names, we can specify our own</p>
+							<p>first is a, last is b, and age is c</p>
+							<p>Remember that your specified name is on the right side of the colon</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Defaults</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+function add2(x, y=12) {
+  // y is 12 if not passed (or passed as undefined)
+  return x + y;
+}
+add2(3);// 15
+add2(3,3);// 6
+
+						</code></pre>
+						<aside class="notes">
+							<p>In the new spec, we can specify default in both function parameters and objects</p>
+							<p>this is an example of a funciton param</p>
+							<p>we have a function that adds 2 numbers. if we don't pass it 2 numbers, the second number defaults to 12</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Defaults in object destructuring</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+var obj = {first:'Jake', last:'Rainis', age:28};
+
+destructureObj(obj);
+
+function destructureObj({first, last, age, favoriteFood = 'doritos'}){
+  console.log(first, last, age, favoriteFood);
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>Here, we have an object that we pass into a function that destructures it</p>
+							<p>Notes we have have an optional argument favoriteFood that has a default</p>
+							<p>Even if the passed object doesn't have that key, we can give it a default value</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>New Object Shorthand</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+let jake = createPerson('Jake', 'Rainis', 28);
+
+function createPerson(first, last, age, favoriteFood = 'doritos'){
+  return {first,last,age,favoriteFood};
+}
+
+console.log(jake); // Object {first: "Jake", last: "Rainis", age: 28, favoriteFood: "doritos"}
+
+						</code></pre>
+						<aside class="notes">
+							<p>Here, we reverse the functionality of the previous example</p>
+							<p>This demonstrates a new object shorthand</p>
+							<p>We call a function and pass it 3 arguments</p>
+							<p>The function has a default favorite food</p>
+							<p>when we return {key}, it automatically maps the object</p>
+							<p>Compared to the old way</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Basic Array Destructuring</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+let arr = [1,2,3];
+
+let [first, second, third] = arr;
+
+console.log(first,second,third); //1 2 3;
+
+						</code></pre>
+						<aside class="notes">
+							<p>Destructuring works on arrays too</p>
+							<p>We assign a let var with brackets to a stored array</p>
+							<p>We can now treat each one of those items as individual references</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Basic Array Destructuring</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+let arr = [1,2,3,4,5];
+
+let [first, second,,,fifth] = arr;
+
+console.log(first,second,fifth); //1 2 5
+
+						</code></pre>
+						<aside class="notes">
+							<p>This is a bit ugly, but worth noting</p>
+							<p>You could also skip inbetween array indexes and capture an nth value if you know where that value is</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Destructuring array into arguments</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+var numbers = [1,2,3,4,5];
+
+func(numbers);
+
+function func([first,second,...rest]){
+  console.log(first, second, rest); // 1 2 [3,4,5];
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>We can also destructure our paramaters</p>
+							<p>If a function accepts an array argument, we can wrap the parameters in brackets and it will destructure the values into individual references</p>
+							<p>Here we're also using a rest param</p>
+							<p>If you wanted to assign just the first two items to individual references, and keep the rest in an array, you'd do it like this</p>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Arrow Functions</h2>
+						<aside class="notes">
+							<p>Arrow functions provide a new alternative way of writing functions</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Arrow functions...</h3>
+						<ul>
+							<li>Are a function shorthand derived from CoffeeScript</li>
+							<li>Do <strong>NOT</strong> create a new function scope</li>
+							<li>Are not meant to replace all of your function delcarations</li>
+						</ul>
+						<aside class="notes">
+							<p>Aside from being a shorthand, they behave a little differently in the way they handle scope, so its important to use them appropriately</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Arrow Function Example</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+//Both of these are equivalent
+
+let func = function(num){ return num*2;};
+func(123); //246;
+
+//
+
+let func = (num) => num*2; //Implicit return
+func(123); //246;
+
+						</code></pre>
+						<aside class="notes">
+							<p>Here we have a function the old way, and then written the new way with arrows</p>
+							<p>A couple things to note here, we omit the word function</p>
+							<p>But we still have our paramerters wrapped in parens</p>
+							<p>We can omit braces to if there's no complex logic</p>
+							<p>If we omit the braces, the function implicitly returns</p>
+							<p>Good for tiny bits of functionality (parsing or sanitizing?)</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Arrow Function with braces</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+//Both of these are equivalent
+
+let func = function(num){
+	let newNum = num * 2;
+	//..some other logic
+	return newNum;
+};
+func(123); //246;
+
+//
+
+let func = (num) => {
+	let newNum = num * 2;
+	//..some other logic
+	return newNum;
+}
+func(123); //246;
+
+						</code></pre>
+						<aside class="notes">
+							<p>Same deal here, both of these are equivalent. First is old, second is new</p>
+							<p>The arrow function contains braces here which means we need to explicitly return something</p>
+							<p>You'll see this pattern more often</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Lexical scope in arrow functions</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+var obj = {
+  id: 123,
+  getID: function(){
+    console.log(this.id); // What happens here?
+  }
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>Now this is where it starts to get interesting</p>
+							<p>Here, we have a plain old object. What does getID console log?</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Lexical scope in arrow functions</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+var obj = {
+  $el: $('.selector'),
+  id: 123,
+  init: function(){
+    this.$el.on('click', function(){
+      console.log(this.id); // What happens here?
+    });
+  }
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>Now let's say that we have a click handler</p>
+							<p>What happens? It breaks!</p>
+							<p>What would guys do to fix this? There are two ways</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Lexical scope in arrow functions</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+var obj = {
+  $el: $('.selector'),
+  id: 123,
+  init: function(){
+    var that = this;
+    this.$el.on('click', function(){
+      console.log(that.id); // Now it works!
+    });
+  }
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>Example of it working with a self reference</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Lexical scope in arrow functions</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+var obj = {
+  $el: $('.selector'),
+  id: 123,
+  init: function(){
+    this.$el.on('click',()=>{
+      console.log(this.id); //Arrow functions don't alter the value of this.
+    });
+  }
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>Example of it working with an arrow function</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Lexical scope in arrow functions</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+var obj = {
+  $el: $('.selector'),
+  init: function(){
+    this.$el.on('click',()=>{
+      let height = $(this).height(); // Error
+    });
+  }
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>but a common problem we'll run into using jquery is the this binding</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Lexical scope in arrow functions</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+var obj = {
+  $el: $('.selector'),
+  init: function(){
+    this.$el.on('click',(e)=>{
+      let height = $(e.currentTarget).height(); // Ah, that's better!
+    });
+  }
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>But jquery has a reservered target reference that this is aliased to called currentTarget. Wrap this in a dollar sign and youre good to go!</p>
+						</aside>
+					</section>
+
+					<section>
+						<h3>Lexical scope in arrow functions</h3>
+						<pre><code class="hjs" data-trim contenteditable>
+
+var obj = {
+  id: 123,
+  getID:()=>{
+    console.log(this.id); // this is global in this context.
+  }
+}
+
+						</code></pre>
+						<aside class="notes">
+							<p>Arrow functions are awesome but we can use them anywhere. If we were to go back to our first basic example and replace the function with an arrow function, we'd break our objects scope</p>
+							<p>SO rule of thumb, make sure you know exactly what THIS is when you're using arrow functions</p>
+						</aside>
+					</section>
+
+				</section>
+
+				<section>
+					<section>
+						<h3>Conclusion</h3>
+						<ul>
+							<li>We can use this now</li>
+							<li>It will save us from writing verbose code</li>
+							<li>It will be performant once we no longer need to transpile</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Further Reading</h3>
+						<ul>
+							<li>Google</li>
+							<li><a href="https://babeljs.io/docs/learn-es2015/">https://babeljs.io/docs/learn-es2015/</a></li>
+							<li>Kyle Simpson's You Don't Know JS #6: ES6 & Beyond (ping me for a copy) </li>
+							<li>This presentation:
+								<ul>
+									<li>$ git clone <a href="https://github.com/redlist/es6-crashcourse">https://github.com/redlist/es6-crashcourse</a></li>
+									<li>$ npm i</li>
+									<li>$ grunt serve</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
